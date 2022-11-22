@@ -18,6 +18,7 @@
     "telegraf": "^4.11.2"
   },
   "devDependencies": {
+    "@architect/sandbox": "^5.3.5",
     "nodemon": "^2.0.20"
   }
 }
