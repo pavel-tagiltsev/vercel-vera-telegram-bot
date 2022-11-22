@@ -17,7 +17,5 @@ app.listen(PORT, (error) => {
   console.log(`Server is running on port: ${PORT}`);
 });
 
-setInterval(() => console.log("Running"), 5000);
-
 bot.launch();
 notifyBySchedule(process.env.TIME_TO_NOTIFY.split(","));

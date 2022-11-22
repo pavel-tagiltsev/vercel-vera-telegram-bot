@@ -4,10 +4,10 @@ import timezone from "dayjs/plugin/timezone.js";
 import notify from "./notify.js";
 import { reportError } from "../utils.js";
 
-const TIME_FORMAT = "HH:mm"; // 15:30
+const TIME_FORMAT = "HH:mm"; // 15:00
 const DATE_FORMAT = "DD.MM.YYYY"; // 01.02.2020
 const TIMEZONE = "Europe/Moscow"; // UTC+3
-const UPDATE_TIMING = 5000; // 5 seconds
+const UPDATE_TIMING = 25000; // 25 second
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
