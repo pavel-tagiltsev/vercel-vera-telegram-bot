@@ -1,51 +1,68 @@
-.neonText {
-    animation: flicker 1.5s infinite alternate;
-    color: #fff;
+@import url(//fonts.googleapis.com/css?family=Vibur);
+
+html,body{
+  height:100%
+}
+body {
+  background: #112 url("./img/brickwall.jpeg")  center no-repeat;
+  background-size:cover;
+  margin:0
+}
+.logo {
+  text-align: center;
+  width: 65%;
+  height: 250px;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+   user-select: none;
+}
+
+.logo b{
+  font: 400 19vh "Vibur";
+  color: #fee;
+  text-shadow: 0 -40px 100px, 0 0 2px, 0 0 1em #ff4444, 0 0 0.5em #ff4444, 0 0 0.1em #ff4444, 0 10px 3px #000;
+}
+.logo b span{
+  animation: blink linear infinite 2s;
+}
+.logo b span:nth-of-type(2){
+  animation: blink linear infinite 3s;
+}
+
+@keyframes blink {
+  78% {
+    color: inherit;
+    text-shadow: inherit;
   }
-  
-  h1 {
-    font-size: 4.2rem;    
+  79%{
+     color: #333;
   }
-  
-  /* Flickering animation */
-  @keyframes flicker {
-      
-    0%, 18%, 22%, 25%, 53%, 57%, 100% {
-  
-        text-shadow:
-        0 0 4px #fff,
-        0 0 11px #fff,
-        0 0 19px #fff,
-        0 0 40px #0fa,
-        0 0 80px #0fa,
-        0 0 90px #0fa,
-        0 0 100px #0fa,
-        0 0 150px #0fa;
+  80% {
     
-    }
-    
-    20%, 24%, 55% {        
-        text-shadow: none;
-    }    
+    text-shadow: none;
   }
-  
-  
-  /* Additional styling */
-    
-  h2 {
-   font-size: 1.8rem;
+  81% {
+    color: inherit;
+    text-shadow: inherit;
   }
-  .container {
-    margin-top: 20vh;
+  82% {
+    color: #333;
+    text-shadow: none;
   }
-  
-  body {
-    font-size: 18px;
-    font-family: "Helvetica Neue", sans-serif;
-    background-color: #010a01;
-  }  
-  
-  h1, h2 {
-    text-align: center;
-    font-weight: 400;
+  83% {
+    color: inherit;
+    text-shadow: inherit;
   }
+  92% {
+    color: #333;
+    text-shadow: none;
+  }
+  92.5% {
+    color: inherit;
+    text-shadow: inherit;
+  }
+}

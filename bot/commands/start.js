@@ -1,7 +1,7 @@
-import api from "../../api.js";
-import { reportError } from "../utils.js";
+import db from "../../db/index.js";
+import { reportError } from "../../utils/index.js";
 
-export default async function onStart(ctx) {
+export default async function start(ctx) {
   try {
     if (!ctx.startPayload) {
       ctx.reply("Для активации бота передайте параметр🧐 /start {параметр}");
@@ -10,7 +10,7 @@ export default async function onStart(ctx) {
 
     ctx.reply("Инициализация🕑");
 
-    const user = await api.findUserById(ctx.startPayload);
+    const user = await db.findUserById(ctx.startPayload);
 
     if (user === "ERROR") {
       ctx.reply("Произошла ошибка😔");
@@ -18,7 +18,7 @@ export default async function onStart(ctx) {
     }
 
     if (user) {
-      await api.updateUser({
+      await db.updateUser({
         id: String(user.id),
         chat_id: String(ctx.message.chat.id),
       });

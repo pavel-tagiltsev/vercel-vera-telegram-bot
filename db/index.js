@@ -1,12 +1,9 @@
 import axios from "axios";
-import dotenv from "dotenv";
 import dayjs from "dayjs";
-import { reportError } from "./telegram/utils.js";
-
-dotenv.config();
+import { reportError } from "../utils/index.js";
 
 const instance = axios.create({
-  baseURL: process.env.BASE_DATABASE_URL,
+  baseURL: process.env.DATABASE_URL,
   timeout: 30000,
   headers: {
     post: {
@@ -15,9 +12,9 @@ const instance = axios.create({
   },
 });
 
-let api = {};
+let db = {};
 
-api.findUserById = async (id) => {
+db.findUserById = async (id) => {
   try {
     const res = await instance.get(`users/select/id/is/`, {
       params: { query: id },
@@ -28,7 +25,7 @@ api.findUserById = async (id) => {
   }
 };
 
-api.updateUser = async (payload) => {
+db.updateUser = async (payload) => {
   try {
     return await instance.post("users/update/", JSON.stringify(payload));
   } catch (err) {
@@ -36,7 +33,7 @@ api.updateUser = async (payload) => {
   }
 };
 
-api.getAllUsers = async () => {
+db.getAllUsers = async () => {
   try {
     const res = await instance.get("users/select/all/");
     return res.data;
@@ -45,7 +42,7 @@ api.getAllUsers = async () => {
   }
 };
 
-api.getAllReports = async () => {
+db.getAllReports = async () => {
   try {
     const res = await instance.get("reports/select/date/after-or-equal/", {
       params: { query: dayjs().format("M/D/YYYY") },
@@ -56,4 +53,4 @@ api.getAllReports = async () => {
   }
 };
 
-export default api;
+export default db;

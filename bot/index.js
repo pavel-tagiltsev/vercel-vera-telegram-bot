@@ -1,10 +1,10 @@
 import { Telegraf } from "telegraf";
 import commands from "./commands/index.js";
 
-let bot = new Telegraf(process.env.VERA_SERVICE_BOT_KEY);
+let bot = new Telegraf(process.env.TELEGRAM_TOKEN);
 
 bot.start(async (ctx) => {
-  if ((await commands.onStart(ctx)) === "ERROR") {
+  if ((await commands.start(ctx)) === "ERROR") {
     ctx.reply("Произошла ошибка😔");
     return;
   }
