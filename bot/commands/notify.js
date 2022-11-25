@@ -1,9 +1,8 @@
 import dayjs from "dayjs";
-import bot from "../index.js";
 import db from "../../db/index.js";
 import { reportError } from "../../utils/index.js";
 
-export default async function notify() {
+export default async function notify(bot) {
   try {
     const users = await db.getAllUsers();
     if (users === "ERROR") return;
