@@ -4,6 +4,12 @@ import { reportError } from "../../utils/index.js";
 
 export default async function notify(bot) {
   try {
+    await new Promise((resolve, _) =>
+      setTimeout(() => {
+        resolve("done");
+      }, 10000)
+    );
+
     const users = await db.getAllUsers();
     if (users === "ERROR") return;
 
