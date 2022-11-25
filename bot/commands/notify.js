@@ -4,17 +4,12 @@ import { reportError } from "../../utils/index.js";
 
 export default async function notify(bot) {
   try {
-    await new Promise((resolve, _) =>
-      setTimeout(() => {
-        resolve("done");
-      }, 10000)
-    );
+    const responses = await Promise.all([db.getAllUsers(), db.getAllReports()]);
 
-    const users = await db.getAllUsers();
-    if (users === "ERROR") return;
+    if (responses.find((res) => res === "ERROR")) return;
 
-    const reports = await db.getAllReports();
-    if (reports === "ERROR") return;
+    const users = responses[0];
+    const reports = responses[1];
 
     for (let i = 0; i < users.length; i++) {
       if (users[i].chat_id) {
