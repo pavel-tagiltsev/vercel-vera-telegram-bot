@@ -3,7 +3,7 @@ import commands from "../bot/commands/index.js";
 
 export default async function webhook(req, res) {
   if (req.body.notify === process.env.NOTIFY_SECRET) {
-    commands.notify(bot);
+    await commands.notify(bot);
     return res.send("OK");
   }
 
