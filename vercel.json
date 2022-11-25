@@ -1,3 +1,4 @@
 {
-  "public": true
+  "public": true,
+  "rewrites": [{ "source": "/api/webhook", "destination": "/" }]
 }
