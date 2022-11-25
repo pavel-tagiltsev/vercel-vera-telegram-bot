@@ -17,7 +17,7 @@ const PORT = process.env.PORT || 8080;
 const app = express();
 
 app.use(express.json());
-app.use(express.static("public"));
+app.use(express.static("static"));
 app.use(await bot.createWebhook({ domain: process.env.WEBHOOK_DOMAIN }));
 
 routes(app, __dirname);
