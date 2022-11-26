@@ -6,7 +6,7 @@ export async function reportError(id, error, rethrow = true) {
   try {
     await bot.telegram.sendMessage(
       process.env.DEV_CHAT_ID,
-      `ERROR - ${id}\r\n${error}`
+      `ERROR - ${id}\r\n${error.message}`
     );
   } catch (err) {
     console.error(err);
