@@ -12,11 +12,6 @@ export default async function start(ctx) {
 
     const user = await db.findUserById(ctx.startPayload);
 
-    if (user === "ERROR") {
-      ctx.reply("Произошла ошибка😔");
-      return;
-    }
-
     if (user) {
       await db.updateUser({
         id: String(user.id),
@@ -30,6 +25,6 @@ export default async function start(ctx) {
 
     ctx.reply("Нет пользователя с данным параметром🤷");
   } catch (err) {
-    return reportError("ON_START", err);
+    await reportError("START", err);
   }
 }

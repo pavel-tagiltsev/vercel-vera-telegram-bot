@@ -1,16 +1,16 @@
 import bot from "../bot/index.js";
 
-export async function reportError(id, err) {
-  console.error(id, err);
+export async function reportError(id, error) {
+  console.error(id, error);
 
   try {
     await bot.telegram.sendMessage(
       process.env.DEV_CHAT_ID,
-      `ERROR - ${id}\r\n${err}`
+      `ERROR - ${id}\r\n${error}`
     );
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 
-  return "ERROR";
+  throw error;
 }

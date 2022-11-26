@@ -16,7 +16,7 @@ let db = {};
 
 db.findUserById = async (id) => {
   try {
-    const res = await instance.get(`users/select/id/is/`, {
+    const res = await instance.get(`users/select/id/i/`, {
       params: { query: id },
     });
     return res.data[0];

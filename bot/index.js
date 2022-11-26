@@ -1,16 +1,16 @@
 import { Telegraf } from "telegraf";
 import commands from "./commands/index.js";
+import { reportError } from "../utils/index.js";
 
 let bot = new Telegraf(process.env.TELEGRAM_TOKEN);
 
 bot.start(async (ctx) => {
-  if ((await commands.start(ctx)) === "ERROR") {
-    ctx.reply("Произошла ошибка😔");
-    return;
-  }
+  await commands.start(ctx);
 });
 
-process.once("SIGINT", () => bot.stop("SIGINT"));
-process.once("SIGTERM", () => bot.stop("SIGTERM"));
+bot.catch((err, ctx) => {
+  ctx.reply("Произошла ошибка😔");
+  reportError("BOT_CATCH", err);
+});
 
 export default bot;

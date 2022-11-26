@@ -6,25 +6,25 @@ export default async function notify(bot) {
   try {
     const responses = await Promise.all([db.getAllUsers(), db.getAllReports()]);
 
-    if (responses.find((res) => res === "ERROR")) return;
-
     const users = responses[0];
     const reports = responses[1];
 
-    for (let i = 0; i < users.length; i++) {
-      if (users[i].chat_id) {
+    let requests = [];
+
+    users.forEach((user) => {
+      if (user.chat_id) {
         const isReportDone = reports.find((report) => {
           const isSameDate = dayjs().isSame(report["Дата"], "day");
-          const isSameFilial = report["Выберите пансионат"] === users[i].filial;
+          const isSameFilial = report["Выберите пансионат"] === user.filial;
 
           return isSameDate && isSameFilial;
         });
 
         if (!isReportDone) {
-          try {
-            await bot.telegram.sendMessage(
-              users[i].chat_id,
-              `${users[i].name}, отчет филиала "${users[i].filial}" за сегодня не сформирован. Не забудте отправить данные😉`,
+          requests.push(
+            bot.telegram.sendMessage(
+              user.chat_id,
+              `${user.name}, отчет филиала "${user.filial}" за сегодня не сформирован. Не забудте отправить данные😉`,
               {
                 reply_markup: {
                   inline_keyboard: [
@@ -37,14 +37,14 @@ export default async function notify(bot) {
                   ],
                 },
               }
-            );
-          } catch (err) {
-            reportError("NOTIFY_SEND_MESSAGE", err);
-          }
+            )
+          );
         }
       }
-    }
+    });
+
+    await Promise.all(requests);
   } catch (err) {
-    reportError("NOTIFY", err);
+    await reportError("NOTIFY", err);
   }
 }
