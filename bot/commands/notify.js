@@ -40,7 +40,7 @@ export default async function notify(bot) {
 
     await Promise.all(requests);
 
-    bot.telegram.sendMessage(
+    await bot.telegram.sendMessage(
       process.env.DEV_CHAT_ID,
       createDevMessage(informedUsers, uninformedUsers)
     );
