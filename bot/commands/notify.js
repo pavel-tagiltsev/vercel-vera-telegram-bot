@@ -87,8 +87,10 @@ function createDevMessage(informedUsers, uninformedUsers) {
 
   return [
     "Отчет",
+    "\r\n",
     "Оповещение получили:",
     informed,
+    "\r\n",
     "Оповещение не получили:",
     uninformed,
   ].join("\r\n");
