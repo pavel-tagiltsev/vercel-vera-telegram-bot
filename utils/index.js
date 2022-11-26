@@ -1,7 +1,7 @@
 import bot from "../bot/index.js";
 
 export async function reportError(id, error, rethrow = true) {
-  console.error(id, error);
+  console.error(id, error.message);
 
   try {
     await bot.telegram.sendMessage(
