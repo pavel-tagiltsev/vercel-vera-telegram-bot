@@ -40,10 +40,12 @@ export default async function notify(bot) {
 
     await Promise.all(requests);
 
-    await bot.telegram.sendMessage(
-      process.env.DEV_CHAT_ID,
-      createDevMessage(informedUsers, uninformedUsers)
-    );
+    if (informedUsers.length !== 0 && uninformedUsers.length !== 0) {
+      await bot.telegram.sendMessage(
+        process.env.DEV_CHAT_ID,
+        createDevMessage(informedUsers, uninformedUsers)
+      );
+    }
   } catch (err) {
     await reportError("NOTIFY", err);
   }
@@ -69,10 +71,25 @@ function createInlineKeyboard() {
 }
 
 function createDevMessage(informedUsers, uninformedUsers) {
+  const informed =
+    informedUsers.length !== 0
+      ? informedUsers
+          .map((user) => `${user.name} - ${user.filial}`)
+          .join("\r\n")
+      : "-----";
+
+  const uninformed =
+    uninformedUsers.length !== 0
+      ? uninformedUsers
+          .map((user) => `${user.name} - ${user.filial}`)
+          .join("\r\n")
+      : "-----";
+
   return [
     "Отчет",
-    "Оповещенные:",
-    informedUsers.map((user) => `${user.name} - ${user.filial}`).join("\r\n"),
-    uninformedUsers.map((user) => `${user.name} - ${user.filial}`).join("\r\n"),
+    "Оповещение получили:",
+    informed,
+    "Оповещение не получили:",
+    uninformed,
   ].join("\r\n");
 }
