@@ -1,6 +1,6 @@
 import bot from "../bot/index.js";
 
-export async function reportError(id, error) {
+export async function reportError(id, error, rethrow = true) {
   console.error(id, error);
 
   try {
@@ -12,5 +12,9 @@ export async function reportError(id, error) {
     console.error(err);
   }
 
-  throw error;
+  if (rethrow) {
+    throw error;
+  }
+
+  return;
 }

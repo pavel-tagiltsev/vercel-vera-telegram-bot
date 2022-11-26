@@ -8,9 +8,9 @@ bot.start(async (ctx) => {
   await commands.start(ctx);
 });
 
-bot.catch((err, ctx) => {
+bot.catch(async (err, ctx) => {
   ctx.reply("Произошла ошибка😔");
-  reportError("BOT_CATCH", err);
+  await reportError("BOT_CATCH", err, false);
 });
 
 export default bot;
