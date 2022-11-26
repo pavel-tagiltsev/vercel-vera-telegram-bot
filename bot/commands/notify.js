@@ -10,6 +10,8 @@ export default async function notify(bot) {
     const reports = responses[1];
 
     let requests = [];
+    let informedUsers = [];
+    let uninformedUsers = [];
 
     users.forEach((user) => {
       if (user.chat_id) {
@@ -21,30 +23,56 @@ export default async function notify(bot) {
         });
 
         if (!isReportDone) {
+          informedUsers.push(user);
+
           requests.push(
             bot.telegram.sendMessage(
               user.chat_id,
-              `${user.name}, отчет филиала "${user.filial}" за сегодня не сформирован. Не забудте отправить данные😉`,
-              {
-                reply_markup: {
-                  inline_keyboard: [
-                    [
-                      {
-                        text: "Заполнить отчет",
-                        url: process.env.REPORT_URL,
-                      },
-                    ],
-                  ],
-                },
-              }
+              createUserMessage(user),
+              createInlineKeyboard()
             )
           );
+        } else {
+          uninformedUsers.push(user);
         }
       }
     });
 
     await Promise.all(requests);
+
+    bot.telegram.sendMessage(
+      process.env.DEV_CHAT_ID,
+      createDevMessage(informedUsers, uninformedUsers)
+    );
   } catch (err) {
     await reportError("NOTIFY", err);
   }
+}
+
+function createUserMessage(user) {
+  return `${user.name}, отчет филиала "${user.filial}" за сегодня не сформирован. Не забудте отправить данные😉`;
+}
+
+function createInlineKeyboard() {
+  return {
+    reply_markup: {
+      inline_keyboard: [
+        [
+          {
+            text: "Заполнить отчет",
+            url: process.env.REPORT_URL,
+          },
+        ],
+      ],
+    },
+  };
+}
+
+function createDevMessage(informedUsers, uninformedUsers) {
+  return [
+    "Отчет",
+    "Оповещенные:",
+    informedUsers.map((user) => `${user.name} - ${user.filial}`).join("\r\n"),
+    uninformedUsers.map((user) => `${user.name} - ${user.filial}`).join("\r\n"),
+  ].join("\r\n");
 }
