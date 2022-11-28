@@ -9,16 +9,12 @@ export default async function notify(req, res) {
     if (secret === process.env.NOTIFY_SECRET) {
       await commands.notify(bot);
 
-      return res
-        .status(200)
-        .send(JSON.stringify({ message: "Notification completed" }));
+      return res.status(200).json({ message: "Notification completed" });
     }
 
-    return res.status(401).send(
-      JSON.stringify({
-        message: "The secret key is not provided or incorrect",
-      })
-    );
+    return res.status(401).json({
+      message: "The secret key is not provided or incorrect",
+    });
   } catch (err) {
     await reportError("FUNCTION_NOTIFY", err);
   }
