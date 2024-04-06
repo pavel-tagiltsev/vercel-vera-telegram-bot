@@ -1,4 +1,4 @@
-import Notifier from "../class/Notifier.js";
+import Notifier from "./class/Notifier.js";
 import models from "../../models/index.js";
 import views from "../../views/index.js";
 import dayjs from "dayjs";

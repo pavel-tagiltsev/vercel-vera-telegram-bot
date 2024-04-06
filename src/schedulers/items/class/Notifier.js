@@ -1,6 +1,6 @@
-import models from "../../models/index.js";
-import views from "../../views/index.js";
-import {reportError} from "../../helpers/index.js";
+import models from "../../../models/index.js";
+import views from "../../../views/index.js";
+import {reportError} from "../../../helpers/index.js";
 
 export default class Notifier {
   static bot;
