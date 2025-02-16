@@ -6,7 +6,7 @@ import {JWT} from "google-auth-library";
 import 'dotenv/config';
 
 const serviceAccountAuth = new JWT({
-  keyFile: 'google-auth.json',
+  keyFile: "./google-auth.json",
   scopes: [process.env.SPREADSHEET_SCOPE],
 });
 
