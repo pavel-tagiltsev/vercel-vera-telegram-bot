@@ -5,6 +5,9 @@
   "type": "module",
   "author": " <pavel.tagiltsef@gmail.com>",
   "license": "ISC",
+  "scripts": {
+    "dev": "nodemon src/index.ts"
+  },
   "dependencies": {
     "cron": "^3.1.6",
     "dayjs": "^1.11.6",
@@ -16,7 +19,7 @@
   },
   "devDependencies": {
     "@types/node": "^20.12.5",
-    "nodemon": "^3.1.0",
+    "nodemon": "^3.1.9",
     "rimraf": "^5.0.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.4"
